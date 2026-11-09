@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { db } from "@/lib/firebase/client";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-export default function TrackOrderPage() {
+function TrackContent() {
   const params = useParams();
   const orderId = params.id as string;
   
@@ -32,7 +32,6 @@ export default function TrackOrderPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#fffdf7]">Loading tracker...</div>;
   if (error) return <div className="min-h-screen flex items-center justify-center bg-[#fffdf7] text-red-600">Order not found. Check your link.</div>;
 
-  // Progress steps
   const steps = ["booked", "picked_up", "washing", "ready", "delivered"];
   const currentStepIndex = steps.indexOf(order.status);
 
@@ -52,9 +51,7 @@ export default function TrackOrderPage() {
 
       <div className="bg-[#fffdf7] p-8 md:p-12 rounded-sm shadow-xl w-full max-w-lg border border-[#d3e1df]">
         
-        {/* Status Timeline */}
         <div className="relative">
-          {/* The vertical line */}
           <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-[#d3e1df] -z-10"></div>
 
           <div className="flex flex-col gap-8">
@@ -64,14 +61,12 @@ export default function TrackOrderPage() {
               
               return (
                 <div key={step} className="flex items-center gap-6">
-                  {/* Circle */}
                   <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 z-10 transition-colors
                     ${isCompleted ? 'bg-[#173948] border-[#173948] text-white' : 'bg-white border-[#d3e1df] text-transparent'}
                   `}>
                     ✓
                   </div>
                   
-                  {/* Text */}
                   <div>
                     <h3 className={`font-bold capitalize ${isCurrent ? 'text-[#173948] text-lg' : 'text-[#557071]'}`}>
                       {step.replace("_", " ")}
@@ -95,5 +90,13 @@ export default function TrackOrderPage() {
         This is a live tracking link. You can save this page or share it with anyone.
       </p>
     </div>
+  );
+}
+
+export default function TrackOrderPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#fffdf7]">Loading...</div>}>
+      <TrackContent />
+    </Suspense>
   );
 }
