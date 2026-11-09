@@ -5,7 +5,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import BookingForm from "@/components/BookingForm";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +12,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +20,7 @@ export default function LoginPage() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard"); // Redirect to dashboard on success
+      router.push("/dashboard");
     } catch (err: any) {
       setError("Invalid email or password. Please try again.");
     } finally {
@@ -78,6 +76,24 @@ export default function LoginPage() {
           </button>
         </form>
 
+        {/* Demo Login Button */}
+        <div className="mt-8 pt-6 border-t border-[#d3e1df]">
+          <p className="text-center text-xs text-[#557071] mb-3 uppercase tracking-wider font-bold">For Hackathon Judges</p>
+          <button
+            onClick={async () => {
+              try {
+                await signInWithEmailAndPassword(auth, "admin@shayankey.com", "password123");
+                router.push("/dashboard");
+              } catch (e) {
+                alert("Demo account not created yet. Please sign up first with admin@shayankey.com and password123");
+              }
+            }}
+            className="w-full bg-[#bce3d7] text-[#173948] p-3 text-sm font-bold hover:bg-[#a5d6c7] transition"
+          >
+            One-Click Demo Login
+          </button>
+        </div>
+
         <p className="text-center text-sm text-[#557071] mt-6">
           Don't have an account?{" "}
           <Link href="/signup" className="font-bold text-[#173948] hover:underline">
@@ -85,7 +101,6 @@ export default function LoginPage() {
           </Link>
         </p>
       </div>
-      <BookingForm isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </div>
   );
 }

@@ -12,7 +12,6 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // 1. Check Auth (Protect the route)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
@@ -22,14 +21,12 @@ export default function AdminPage() {
     return () => unsubscribe();
   }, [router]);
 
-  // 2. Fetch ALL orders in real-time
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "orders"), (snapshot) => {
       const fetchedOrders = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      // Sort newest first if createdAt exists
       fetchedOrders.sort((a: any, b: any) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
       setOrders(fetchedOrders);
       setLoading(false);
@@ -37,7 +34,6 @@ export default function AdminPage() {
     return () => unsubscribe();
   }, []);
 
-  // 3. Update Status Function
   const updateStatus = async (orderId: string, newStatus: string) => {
     try {
       const orderRef = doc(db, "orders", orderId);
@@ -53,7 +49,6 @@ export default function AdminPage() {
     router.push("/login");
   };
 
-  // Calculate Stats
   const totalOrders = orders.length;
   const activeOrders = orders.filter(o => o.status !== "delivered").length;
   const totalRevenue = orders.reduce((sum, order) => sum + (Number(order.totalPrice) || 0), 0);
@@ -68,16 +63,15 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-[#fffdf7] font-sans">
-      {/* Admin Navbar */}
       <nav className="bg-[#173948] text-white px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition">
           <div className="h-8 w-8 border-2 border-white rounded-full flex items-center justify-center font-serif text-sm font-bold">
             S
           </div>
           <span className="font-bold tracking-widest text-sm">
             SHAYANKEY <span className="text-[#bce3d7] ml-2 font-normal text-xs uppercase tracking-wider">Admin</span>
           </span>
-        </div>
+        </Link>
         <div className="flex items-center gap-4 text-sm">
           <Link href="/dashboard" className="hover:text-[#bce3d7] transition hidden md:inline">Customer View</Link>
           <button 
@@ -89,16 +83,12 @@ export default function AdminPage() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-12">
-        
-        {/* Header */}
         <div className="mb-8">
           <h1 className="font-serif text-4xl text-[#173948] mb-2">Business Overview</h1>
           <p className="text-[#557071]">Manage your orders and track your business growth.</p>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="bg-white border border-[#d3e1df] p-6 rounded-sm shadow-sm">
             <p className="text-xs font-bold text-[#557071] uppercase tracking-wider mb-2">Total Revenue</p>
@@ -114,7 +104,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Orders Table */}
         <div className="mb-4 flex justify-between items-end">
           <h2 className="font-serif text-2xl text-[#173948]">Recent Orders</h2>
         </div>

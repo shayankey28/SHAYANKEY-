@@ -6,6 +6,7 @@ import { db } from "@/lib/firebase/client";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import BookingForm from "@/components/BookingForm";
 
 export default function DashboardPage() {
@@ -15,7 +16,6 @@ export default function DashboardPage() {
   const [orders, setOrders] = useState<any[]>([]);
   const router = useRouter();
 
-  // 1. Handle Authentication
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -28,15 +28,9 @@ export default function DashboardPage() {
     return () => unsubscribe();
   }, [router]);
 
-  // 2. Fetch Orders in Real-Time
   useEffect(() => {
     if (!user) return;
-
-    const q = query(
-      collection(db, "orders"),
-      where("customerId", "==", user.uid)
-    );
-
+    const q = query(collection(db, "orders"), where("customerId", "==", user.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedOrders = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -45,7 +39,6 @@ export default function DashboardPage() {
       fetchedOrders.sort((a: any, b: any) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
       setOrders(fetchedOrders);
     });
-
     return () => unsubscribe();
   }, [user]);
 
@@ -66,12 +59,12 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-[#fffdf7] font-sans">
       {/* Top Navigation */}
       <nav className="bg-[#173948] text-white px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition">
           <div className="h-8 w-8 border-2 border-white rounded-full flex items-center justify-center font-serif text-sm font-bold">
             S
           </div>
           <span className="font-bold tracking-widest text-sm">SHAYANKEY</span>
-        </div>
+        </Link>
         <div className="flex items-center gap-4 text-sm">
           <span className="hidden md:inline text-[#bce3d7]">{user?.email}</span>
           <button 
@@ -122,7 +115,6 @@ export default function DashboardPage() {
                     {order.notes && <p className="text-xs text-[#557071] mt-1 italic">"{order.notes}"</p>}
                   </div>
                   
-                  {/* UPDATED SECTION WITH TRACKING LINK */}
                   <div className="flex flex-col items-end gap-2">
                     <span className="bg-[#dceff0] text-[#173948] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full">
                       {order.status.replace("_", " ")}
@@ -143,7 +135,6 @@ export default function DashboardPage() {
         </div>
       </main>
 
-      {/* The Slide-out Panel */}
       <BookingForm isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </div>
   );

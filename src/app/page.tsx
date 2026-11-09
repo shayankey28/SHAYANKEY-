@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import SmartCareAdvisor from "@/components/SmartCareAdvisor"; // Added import
 
 export default function Home() {
   return (
@@ -75,6 +76,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Smart Care Advisor Section */}
+        <section className="bg-[#f5f5f5] py-24 px-6 border-t border-[#d3e1df]">
+          <SmartCareAdvisor />
         </section>
       </main>
 
