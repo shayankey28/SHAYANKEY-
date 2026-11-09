@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import SmartCareAdvisor from "@/components/SmartCareAdvisor"; // Added import
+import SmartCareAdvisor from "@/components/SmartCareAdvisor";
 
 export default function Home() {
   return (
@@ -84,8 +84,9 @@ export default function Home() {
         </section>
       </main>
 
+      {/* FIXED FOOTER */}
       <footer className="border-t border-[#d3e1df] py-8 text-center text-sm text-[#547071]">
-        <p>&copy; {new Date().getFullYear()} SHAYANKEY ENTERPRISES. All rights reserved.</p>
+        <p>&copy; 2026 SHAYANKEY ENTERPRISES. All rights reserved.</p>
       </footer>
     </div>
   );
