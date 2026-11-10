@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase/client";
 import { db } from "@/lib/firebase/client";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot, doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BookingForm from "@/components/BookingForm";
@@ -14,12 +14,20 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [orders, setOrders] = useState<any[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        
+        // Check if this user is an admin (just so we can show a "Back to Admin" button)
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists() && userDocSnap.data().role === "admin") {
+          setIsAdmin(true);
+        }
       } else {
         router.push("/login");
       }
@@ -67,6 +75,14 @@ export default function DashboardPage() {
         </Link>
         <div className="flex items-center gap-4 text-sm">
           <span className="hidden md:inline text-[#bce3d7]">{user?.email}</span>
+          
+          {/* Show Admin link only if the user is an admin */}
+          {isAdmin && (
+            <Link href="/admin" className="text-[#bce3d7] hover:text-white transition font-bold">
+              Admin Panel
+            </Link>
+          )}
+
           <button 
             onClick={handleLogout}
             className="bg-transparent border border-white/30 hover:bg-white/10 px-4 py-2 rounded-sm transition"
@@ -127,7 +143,6 @@ export default function DashboardPage() {
                       Track Order ↗
                     </a>
                   </div>
-                  
                 </div>
               ))
             )}

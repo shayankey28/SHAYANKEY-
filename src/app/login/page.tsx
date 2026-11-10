@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase/client";
+import { auth, db } from "@/lib/firebase/client";
+import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -19,8 +20,18 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      
+      // Check their role in the database
+      const userDocRef = doc(db, "users", userCredential.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      
+      if (userDocSnap.exists() && userDocSnap.data().role === "admin") {
+        router.push("/admin"); // Admins go straight to the admin panel
+      } else {
+        router.push("/dashboard"); // Customers go to the customer dashboard
+      }
+
     } catch (err: any) {
       setError("Invalid email or password. Please try again.");
     } finally {
@@ -82,10 +93,18 @@ export default function LoginPage() {
           <button
             onClick={async () => {
               try {
-                await signInWithEmailAndPassword(auth, "admin@shayankey.com", "password123");
-                router.push("/dashboard");
+                // IMPORTANT: Change this email to your actual admin email!
+                const userCredential = await signInWithEmailAndPassword(auth, "adminfinal@gmail.com", "password123");
+                const userDocRef = doc(db, "users", userCredential.user.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                
+                if (userDocSnap.exists() && userDocSnap.data().role === "admin") {
+                  router.push("/admin");
+                } else {
+                  router.push("/dashboard");
+                }
               } catch (e) {
-                alert("Demo account not created yet. Please sign up first with admin@shayankey.com and password123");
+                alert("Demo account not created yet. Please sign up first.");
               }
             }}
             className="w-full bg-[#bce3d7] text-[#173948] p-3 text-sm font-bold hover:bg-[#a5d6c7] transition"
