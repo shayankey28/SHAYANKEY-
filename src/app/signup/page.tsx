@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase/client";
+import { auth, db } from "@/lib/firebase/client";
+import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -25,8 +26,16 @@ export default function SignupPage() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard"); // Redirect to dashboard on success
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Save user to Firestore with a default role of "customer"
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email: userCredential.user.email,
+        role: "customer",
+        createdAt: new Date(),
+      });
+
+      router.push("/dashboard");
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
         setError("This email is already registered. Try logging in.");
