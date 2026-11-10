@@ -26,6 +26,9 @@ export default function LoginPage() {
       const userDocRef = doc(db, "users", userCredential.user.uid);
       const userDocSnap = await getDoc(userDocRef);
       
+      // --- DEBUG LOG ADDED HERE ---
+      console.log("USER DATA FROM DATABASE:", userDocSnap.data());
+      
       if (userDocSnap.exists() && userDocSnap.data().role === "admin") {
         router.push("/admin"); // Admins go straight to the admin panel
       } else {
@@ -33,6 +36,7 @@ export default function LoginPage() {
       }
 
     } catch (err: any) {
+      console.error("Login Error:", err);
       setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
@@ -93,7 +97,6 @@ export default function LoginPage() {
           <button
             onClick={async () => {
               try {
-                // IMPORTANT: Change this email to your actual admin email!
                 const userCredential = await signInWithEmailAndPassword(auth, "adminfinal@gmail.com", "password123");
                 const userDocRef = doc(db, "users", userCredential.user.uid);
                 const userDocSnap = await getDoc(userDocRef);
@@ -104,7 +107,7 @@ export default function LoginPage() {
                   router.push("/dashboard");
                 }
               } catch (e) {
-                alert("Demo account not created yet. Please sign up first.");
+                alert("Demo account failed to log in. Please check the email and password.");
               }
             }}
             className="w-full bg-[#bce3d7] text-[#173948] p-3 text-sm font-bold hover:bg-[#a5d6c7] transition"
