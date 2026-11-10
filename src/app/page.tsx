@@ -9,17 +9,16 @@ export default function Home() {
 
       <main className="flex-1 w-full">
         
-        {/* HERO SECTION - Full Width with Background Image */}
+        {/* HERO SECTION - Now using machines.jpg as the background */}
         <section className="relative w-full h-[85vh] flex items-center">
-          {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/hero-bg.jpg" 
-              alt="Laundry Background" 
+              src="/images/machines.jpg" 
+              alt="Washing Machines" 
               className="w-full h-full object-cover"
             />
-            {/* Dark Overlay to make text readable */}
-            <div className="absolute inset-0 bg-[#173948]/70 mix-blend-multiply"></div>
+            {/* Dark Overlay to make the white text readable */}
+            <div className="absolute inset-0 bg-[#173948]/75 mix-blend-multiply"></div>
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
@@ -80,7 +79,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GALLERY SECTION - Uses the exact filenames from your screenshot */}
+        {/* GALLERY SECTION - Uses the exact filenames from your folder */}
         <section className="w-full bg-[#173948] py-24">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -99,7 +98,7 @@ export default function Home() {
                 <img src="/images/basket.jpg" alt="Folded Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/machines.jpg" alt="Washing Machines" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg.jpg" alt="Hanging Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
                 <img src="/images/laundromat.jpg" alt="Laundromat" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
