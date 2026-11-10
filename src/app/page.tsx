@@ -9,16 +9,14 @@ export default function Home() {
 
       <main className="flex-1 w-full">
         
-        {/* HERO SECTION - Full Width with Background Image */}
+        {/* HERO SECTION */}
         <section className="relative w-full h-[85vh] flex items-center">
-          {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
               src="/images/hero-bg.jpg" 
               alt="Laundry Background" 
               className="w-full h-full object-cover"
             />
-            {/* Dark Overlay to make text readable */}
             <div className="absolute inset-0 bg-[#173948]/70 mix-blend-multiply"></div>
           </div>
 
@@ -47,7 +45,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SERVICES SECTION - Expanded */}
+        {/* SERVICES SECTION */}
         <section id="services" className="w-full bg-white py-24 border-b border-[#d3e1df]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-16">
@@ -80,7 +78,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GALLERY SECTION - Uses all your photos */}
+        {/* GALLERY SECTION */}
         <section className="w-full bg-[#173948] py-24">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -93,7 +91,6 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Masonry-style Grid using your photos */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
               <div className="col-span-2 row-span-2 rounded-sm overflow-hidden relative group">
                 <img src="/images/basket.jpg" alt="Folded Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -108,10 +105,12 @@ export default function Home() {
                 <img src="/images/drying.jpg" alt="Drying Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/ironing.jpg" alt="Ironing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                {/* Note the .avif extension here */}
+                <img src="/images/ironing.jpg.avif" alt="Ironing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/hangers.jpg" alt="Hangers" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                {/* Note the .avif extension here */}
+                <img src="/images/hangers.jpg.avif" alt="Hangers" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="col-span-2 rounded-sm overflow-hidden relative group">
                 <img src="/images/bubbles.jpg" alt="Soap Bubbles" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -125,8 +124,6 @@ export default function Home() {
               <div className="col-span-2 rounded-sm overflow-hidden relative group">
                 <img src="/images/window.jpg" alt="Window" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
-              
-              {/* The newly renamed gallery images */}
               <div className="rounded-sm overflow-hidden relative group">
                 <img src="/images/gallery-1.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
