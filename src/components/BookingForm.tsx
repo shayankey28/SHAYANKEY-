@@ -12,8 +12,14 @@ export default function BookingForm({ isOpen, onClose }: { isOpen: boolean; onCl
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Basic pricing logic (e.g., 150 KES per item)
-  const pricePerItem = 150;
+  // Pricing Logic matching the 6 services
+  let pricePerItem = 150; // Default for Wash & Fold
+  if (service === "Dry Cleaning") pricePerItem = 300;
+  if (service === "Ironing & Pressing") pricePerItem = 100;
+  if (service === "Duvets & Bedding") pricePerItem = 800;
+  if (service === "Shoe Cleaning") pricePerItem = 500;
+  if (service === "Express Service") pricePerItem = 250; // Base 150 + 100 express fee
+
   const totalPrice = items * pricePerItem;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,7 +35,7 @@ export default function BookingForm({ isOpen, onClose }: { isOpen: boolean; onCl
         items: Number(items),
         totalPrice,
         notes,
-        status: "booked", // Initial status
+        status: "booked",
         createdAt: serverTimestamp(),
       });
       setSuccess(true);
@@ -38,6 +44,7 @@ export default function BookingForm({ isOpen, onClose }: { isOpen: boolean; onCl
         setSuccess(false);
         setNotes("");
         setItems(5);
+        setService("Wash & Fold");
       }, 2000);
     } catch (error) {
       console.error("Error booking:", error);
@@ -79,9 +86,12 @@ export default function BookingForm({ isOpen, onClose }: { isOpen: boolean; onCl
                 onChange={(e) => setService(e.target.value)}
                 className="w-full p-3 border border-[#d3e1df] bg-white text-[#173948] focus:outline-none focus:border-[#173948]"
               >
-                <option>Wash & Fold</option>
-                <option>Dry Cleaning</option>
-                <option>Ironing & Pressing</option>
+                <option value="Wash & Fold">Wash & Fold</option>
+                <option value="Dry Cleaning">Dry Cleaning</option>
+                <option value="Ironing & Pressing">Ironing & Pressing</option>
+                <option value="Duvets & Bedding">Duvets & Bedding</option>
+                <option value="Shoe Cleaning">Shoe Cleaning</option>
+                <option value="Express Service">Express Service</option>
               </select>
             </div>
 
