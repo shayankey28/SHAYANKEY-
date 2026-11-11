@@ -8,7 +8,7 @@ export default function Home() {
       <Navbar />
 
       <main className="flex-1 w-full">
-        {/* HERO SECTION - Using hero-bg.jpg.jpg */}
+        {/* HERO SECTION */}
         <section className="relative w-full h-[85vh] flex items-center">
           <div className="absolute inset-0 z-0">
             <img 
