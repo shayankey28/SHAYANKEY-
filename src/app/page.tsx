@@ -9,15 +9,14 @@ export default function Home() {
 
       <main className="flex-1 w-full">
         
-        {/* HERO SECTION - Now using machines.jpg as the background */}
+        {/* HERO SECTION - Using machines.jpg.jpg as the background */}
         <section className="relative w-full h-[85vh] flex items-center">
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/machines.jpg" 
+              src="/images/machines.jpg.jpg" 
               alt="Washing Machines" 
               className="w-full h-full object-cover"
             />
-            {/* Dark Overlay to make the white text readable */}
             <div className="absolute inset-0 bg-[#173948]/75 mix-blend-multiply"></div>
           </div>
 
@@ -79,7 +78,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GALLERY SECTION - Uses the exact filenames from your folder */}
+        {/* GALLERY SECTION - Perfectly matches your folder screenshot */}
         <section className="w-full bg-[#173948] py-24">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -92,49 +91,57 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Masonry-style Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
               <div className="col-span-2 row-span-2 rounded-sm overflow-hidden relative group">
-                <img src="/images/basket.jpg" alt="Folded Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/basket.jpg.jpg" alt="Folded Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/hero-bg.jpg" alt="Hanging Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg.jpg.jpg" alt="Hanging Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/laundromat.jpg" alt="Laundromat" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/laundromat.jpg.jpg" alt="Laundromat" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="col-span-2 rounded-sm overflow-hidden relative group">
-                <img src="/images/drying.jpg" alt="Drying Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/drying.jpg.jpg" alt="Drying Clothes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              
+              {/* Notice the .avif extensions here */}
+              <div className="rounded-sm overflow-hidden relative group">
+                <img src="/images/ironing.jpg.avif" alt="Ironing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/gallery-1.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hangers.jpg.avif" alt="Hangers" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              
+              <div className="col-span-2 rounded-sm overflow-hidden relative group">
+                <img src="/images/bubbles.jpg.jpg" alt="Soap Bubbles" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/gallery-2.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/jeans-line.jpg.jpg" alt="Jeans" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="rounded-sm overflow-hidden relative group">
+                <img src="/images/clips.jpg.jpg" alt="Pegs" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="col-span-2 rounded-sm overflow-hidden relative group">
-                <img src="/images/bubbles.jpg" alt="Soap Bubbles" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/window.jpg.jpg" alt="Window" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/jeans-line.jpg" alt="Jeans" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/clips.jpg" alt="Pegs" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg (1).jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="col-span-2 rounded-sm overflow-hidden relative group">
-                <img src="/images/window.jpg" alt="Window" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg (6).jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/gallery-3.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/heart-clip.jpg.jpg" alt="Heart Peg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="col-span-2 rounded-sm overflow-hidden relative group">
+                <img src="/images/hero-bg (2).jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/gallery-4.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg (3).jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/gallery-5.jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="rounded-sm overflow-hidden relative group">
-                <img src="/images/heart-clip.jpg" alt="Heart Peg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="/images/hero-bg (7).jpg" alt="Gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
             </div>
           </div>
